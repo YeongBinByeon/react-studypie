@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import MemoContainer from "./components/MemoContainer";
 import SideBar from "./components/SideBar";
-import SideBarFooter from "./components/SideBarFooter";
 
 function App() {
   const [memos, setMemos] = useState([
@@ -20,11 +19,22 @@ function App() {
     },
   ]);
 
+  const [selectedMemoIndex, setSelectedMemoIndex] = useState(0);
+
+  const setMemo = (newMemo) => {
+    const newMemos = [...memos];
+    newMemos[selectedMemoIndex] = newMemo;
+    setMemos(newMemos);
+  };
+
   return (
     <div className="App">
-      <SideBar memos={memos} />
-      <MemoContainer />
-      <SideBarFooter />
+      <SideBar
+        memos={memos}
+        selectedMemoIndex={selectedMemoIndex}
+        setSelectedMemoIndex={setSelectedMemoIndex}
+      />
+      <MemoContainer memo={memos[selectedMemoIndex]} setMemo={setMemo} />
     </div>
   );
 }
