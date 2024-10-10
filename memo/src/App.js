@@ -40,9 +40,31 @@ function App() {
       },
     ]);
 
-    console.log(memos);
-    console.log(memos.length);
     setSelectedMemoIndex(memos.length);
+  };
+
+  // const deleteMemo = (deleteIndex) => {
+  //   console.log("deleteMemo 로깅 확인");
+
+  //   const newMemos = memos.filter((_, index) => index !== deleteIndex);
+  //   if (deleteIndex === selectedMemoIndex) {
+  //     setSelectedMemoIndex(0);
+  //   }
+
+  //   setMemos(newMemos);
+
+  //   console.log(newMemos);
+  // };
+
+  const deleteMemo = (index) => {
+    const newMemos = [...memos];
+
+    newMemos.splice(index, 1);
+
+    setMemos(newMemos);
+    if (index === selectedMemoIndex) {
+      setSelectedMemoIndex(0);
+    }
   };
 
   return (
@@ -52,6 +74,7 @@ function App() {
         addMemo={addMemo}
         selectedMemoIndex={selectedMemoIndex}
         setSelectedMemoIndex={setSelectedMemoIndex}
+        deleteMemo={deleteMemo}
       />
       <MemoContainer memo={memos[selectedMemoIndex]} setMemo={setMemo} />
     </div>
